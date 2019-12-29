@@ -2,6 +2,8 @@ package application;
 
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
 import model.entities.Department;
@@ -13,9 +15,9 @@ public class Program {
 
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		
-		
-		
+		System.out.println("=== Test 1: Seller findById ===");
 		System.out.println(sellerDao.findById(3));
+		JOptionPane.showMessageDialog(null, sellerDao.findById(3));
 		
 	}
 
