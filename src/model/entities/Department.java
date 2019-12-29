@@ -12,6 +12,8 @@ public class Department implements Serializable{
 		this.id = id;
 		this.name = name;
 	}
+	public Department() {
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -51,6 +53,6 @@ public class Department implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "\n Department ID:" + id + "\n Name:" + name;
+		return "\n Department ID:" + id + "\n DepName:" + name;
 	}
 }
