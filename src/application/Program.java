@@ -9,6 +9,7 @@ import model.dao.DepartmentDao;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
+import model.entities.PhoneNumber;
 
 public class Program {
 
@@ -19,7 +20,7 @@ public class Program {
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		Department department = new Department(2, null);
 		
-		System.out.println("=== Test 1: Seller findById ===");
+		/*System.out.println("=== Test 1: Seller findById ===");
 		System.out.println(sellerDao.findById(3));
 		//JOptionPane.showMessageDialog(null, sellerDao.findById(3));
 		System.out.println("\n==========================");
@@ -57,11 +58,15 @@ public class Program {
 		System.out.println("Enter id for delete test: ");
 		int id = sc.nextInt();
 		sellerDao.deleteById(id);
-		System.out.println("Delete completed");
+		System.out.println("Delete completed");*/
 		
-		System.out.println("=== TEST 1: findById =======");
+		/*System.out.println("=== TEST 1: findById =======");
 		Department dep = departmentDao.findById(4);
-		System.out.println(dep);
+		System.out.println(dep);*/
+		
+		PhoneNumber pn = new PhoneNumber();
+		System.out.println(pn);
+		
 		sc.close();
 	}	
 	}
