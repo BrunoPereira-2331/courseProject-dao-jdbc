@@ -2,6 +2,7 @@ package model.dao;
 
 import db.DB;
 import model.dao.Impl.DepartmentDaoJDBC;
+import model.dao.Impl.PhoneNumberDaoJDBC;
 import model.dao.Impl.SellerDaoJDBC;
 
 public class DaoFactory {
@@ -14,5 +15,7 @@ public class DaoFactory {
 		return new DepartmentDaoJDBC(DB.getConnection());
 	}
 	
-	
+	public static phoneNumberDao createPhoneNumberDao() {
+		return new PhoneNumberDaoJDBC(DB.getConnection());
+	}
 }

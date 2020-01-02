@@ -25,8 +25,8 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 	public void insert(Department obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("INSERT INTO department"
-					+ "VALUES(null, ?),", Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("INSERT INTO department (Name) "
+					+ "VALUES(?),", Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getName());
 			
 			int rowsAffected = st.executeUpdate();

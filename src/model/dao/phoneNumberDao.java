@@ -10,7 +10,7 @@ public interface phoneNumberDao {
 	void insert(PhoneNumber obj);
 	void update(PhoneNumber obj);
 	void deleteById(Integer id);
-	Seller findById(Integer id);
-	List<Seller> findBySeller(Seller seller);
-	List<Seller> findAll();
+	PhoneNumber findById(Integer id);
+	List<PhoneNumber> findBySeller(Seller seller);
+	List<PhoneNumber> findAll();
 }

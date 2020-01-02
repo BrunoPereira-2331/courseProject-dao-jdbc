@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
 import model.dao.SellerDao;
+import model.dao.phoneNumberDao;
 import model.entities.Department;
 import model.entities.Seller;
 import model.entities.PhoneNumber;
@@ -18,6 +21,7 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+		phoneNumberDao phoneNumberDao = DaoFactory.createPhoneNumberDao();
 		Department department = new Department(2, null);
 		
 		/*System.out.println("=== Test 1: Seller findById ===");
@@ -60,12 +64,26 @@ public class Program {
 		sellerDao.deleteById(id);
 		System.out.println("Delete completed");*/
 		
-		/*System.out.println("=== TEST 1: findById =======");
+		/*System.out.println("=== TEST 1: findById ===");
 		Department dep = departmentDao.findById(4);
 		System.out.println(dep);*/
 		
-		PhoneNumber pn = new PhoneNumber();
-		System.out.println(pn);
+		int idSeller = Integer.parseInt(JOptionPane.showInputDialog("ID Seller"));
+		String phoneSeller = JOptionPane.showInputDialog("Seller Phone:");
+		
+		System.out.println("=== TEST 1-PhoneNumber: Insert===");
+		PhoneNumber pn = new PhoneNumber(16, idSeller, phoneSeller);
+		phoneNumberDao.insert(pn);
+		System.out.println("Phone Inserted!\n" + pn);
+		
+		//System.out.println("=== TEST 1: seller findById =====");
+		//Seller seller = sellerDao.findById(3);
+		//System.out.println(seller);
+		
+		/*System.out.println("\n=== TEST 4: seller insert =====");
+		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0, department);
+		sellerDao.insert(newSeller);
+		System.out.println("Inserted! New id = " + newSeller.getId());*/
 		
 		sc.close();
 	}	

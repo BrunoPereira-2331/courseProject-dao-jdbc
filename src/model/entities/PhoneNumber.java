@@ -5,14 +5,16 @@ import java.io.Serializable;
 public class PhoneNumber implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+
+	private Integer id;
+	private int idSeller;
+	private String phoneNumber;
 	
-	private int id = 1;
-	private int idSeller = 2;
-	private String phoneNumber = "2222-2222";
+	private Seller seller;
 	
 	public PhoneNumber () {}
 	
-	public PhoneNumber(int id, int idSeller, String phoneNumber) {
+	public PhoneNumber(Integer id, int idSeller, String phoneNumber) {
 		this.id = id;
 		this.idSeller = idSeller;
 		this.phoneNumber = phoneNumber;
@@ -40,6 +42,10 @@ public class PhoneNumber implements Serializable{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public Seller getSeller() {
+		return seller;
 	}
 
 	@Override
