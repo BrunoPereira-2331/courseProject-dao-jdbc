@@ -13,5 +13,5 @@ public interface SellerDao {
 	Seller findById(Integer id);
 	List<Seller> findByDepartment(Department department);
 	List<Seller> findAll();
-	List<Seller> findByPhoneNumber(String phoneNumber);
+	//List<Seller> findByPhoneNumber(String phoneNumber);
 }

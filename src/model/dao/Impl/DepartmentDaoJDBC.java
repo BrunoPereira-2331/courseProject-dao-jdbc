@@ -12,10 +12,12 @@ import db.DB;
 import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
+import model.entities.Seller;
 
 public class DepartmentDaoJDBC implements DepartmentDao{
 	
 	private Connection conn;
+	private InstantiationImpl InstImpl;
 
 	public DepartmentDaoJDBC(Connection conn) {
 		this.conn = conn;
@@ -50,7 +52,6 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		finally {
 			DB.closeStatement(st);
 		} 
-		
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 			st = conn.prepareStatement("UPDATE department "
 					+ "SET Name = ? WHERE Id = ?");
 			st.setString(1, obj.getName());
-			st.setInt(1, obj.getId());
+			st.setInt(2, obj.getId()); 
 			
 			st.executeUpdate();
 		} 
@@ -79,7 +80,6 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		}
-		
 		finally {
 			DB.closeStatement(st);
 		}
@@ -96,9 +96,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Department obj = new Department();
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
+				Department obj = InstImpl.instantiateDepartment(rs);
 				return obj;
 			}
 			return null;
@@ -124,9 +122,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 			
 			List<Department> list = new ArrayList<>();
 			while(rs.next()) {
-				Department obj = new Department();
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
+				Department obj = InstImpl.instantiateDepartment(rs);
 				list.add(obj);
 			}
 			return list;

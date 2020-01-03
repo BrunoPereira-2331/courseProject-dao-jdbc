@@ -4,25 +4,54 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.entities.Department;
+import model.entities.PhoneNumber;
 import model.entities.Seller;
 
 public class InstantiationImpl {
 	
-	protected Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
-		Seller obj = new Seller();
-		obj.setId(rs.getInt("Id"));
-		obj.setName(rs.getString("Name"));
-		obj.setEmail(rs.getString("Email"));
-		obj.setBaseSalary(rs.getDouble("BaseSalary"));
-		obj.setBirthDate(rs.getDate("BirthDate"));
-		obj.setDepartment(dep);
-		return obj;
+	protected static Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+		Seller seller = new Seller();
+		seller.setId(rs.getInt("Id"));
+		seller.setName(rs.getString("Name"));
+		seller.setEmail(rs.getString("Email"));
+		seller.setBaseSalary(rs.getDouble("BaseSalary"));
+		seller.setBirthDate(rs.getDate("BirthDate"));
+		seller.setDepartment(dep);
+		return seller;
 	}
+	
+	protected static Seller instantiateSeller(ResultSet rs, Department dep, PhoneNumber pn) throws SQLException {
+		Seller seller = new Seller();
+		seller.setId(rs.getInt("Id"));
+		seller.setName(rs.getString("Name"));
+		seller.setEmail(rs.getString("Email"));
+		seller.setBaseSalary(rs.getDouble("BaseSalary"));
+		seller.setBirthDate(rs.getDate("BirthDate"));
+		seller.setDepartment(dep);
+		if (pn != null) {
+			seller.setPhoneNumber(pn);
+			return seller;
+		}
+			return seller;
+	}
+	
 
-	protected Department instantiateDepartment(ResultSet rs) throws SQLException {
+	protected static Department instantiateDepartment(ResultSet rs) throws SQLException {
 		Department dep = new Department();
 		dep.setId(rs.getInt("Department_Id"));
 		dep.setName(rs.getString("DepName"));
 		return dep;
+	}
+	
+	protected static PhoneNumber instantiatePhoneNumber(ResultSet rs) throws SQLException {
+		PhoneNumber pn = new PhoneNumber();
+		pn.setId(rs.getInt("pn.id"));
+		pn.setIdSeller(rs.getInt("s.id"));
+		pn.setPhoneNumber(rs.getString("pn.phonenumber"));
+		
+		
+		
+		return null;
+		
 	}
 }
