@@ -20,7 +20,6 @@ import model.entities.Seller;
 public class SellerDaoJDBC implements SellerDao {
 
 	private Connection conn;
-	private InstantiationImpl InstImpl;
 
 	public SellerDaoJDBC(Connection conn) {
 		this.conn = conn;
@@ -113,9 +112,9 @@ public class SellerDaoJDBC implements SellerDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Department dep = InstImpl.instantiateDepartment(rs);
-				PhoneNumber pn = InstImpl.instantiatePhoneNumber(rs);
-				Seller seller = InstImpl.instantiateSeller(rs, dep, pn);
+				Department dep = InstantiationImpl.instantiateDepartment(rs);
+				PhoneNumber pn = InstantiationImpl.instantiatePhoneNumber(rs);
+				Seller seller = InstantiationImpl.instantiateSeller(rs, dep, pn);
 				return seller;
 			} else {
 				return null;
@@ -127,11 +126,9 @@ public class SellerDaoJDBC implements SellerDao {
 			DB.closeResultSet(rs);
 		}
 	}
-
+	
 	@Override
 	public List<Seller> findAll() {
-		
-		
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -145,17 +142,22 @@ public class SellerDaoJDBC implements SellerDao {
 
 			List<Seller> list = new ArrayList<>();
 
-			Map<Integer, Department> map = new HashMap<>();
+			Map<Integer, Department> mapDep = new HashMap<>();
+			Map<Integer, PhoneNumber> mapPn = new HashMap<>();
 
 			while (rs.next()) {
-				Department dep = map.get(rs.getInt("s.Department_Id"));
+				Department dep = mapDep.get(rs.getInt("s.Department_Id"));
+				PhoneNumber pn = mapPn.get(rs.getInt("pn.Phone ID"));
 				if (dep == null) {
-					dep = InstImpl.instantiateDepartment(rs);
-					map.put(rs.getInt("s.Department_Id"), dep);
+					dep = InstantiationImpl.instantiateDepartment(rs);
+					mapDep.put(rs.getInt("s.Department_Id"), dep);
 				}
-				//repair seller - Impl - Pn
-				//Seller seller = InstImpl.instantiateSeller(rs, dep);
-				//list.add(seller);
+				if (pn == null) {
+					pn = InstantiationImpl.instantiatePhoneNumber(rs);
+					mapPn.put(rs.getInt("pn.Phone ID"), pn);
+				}
+				Seller seller = InstantiationImpl.instantiateSeller(rs, dep, pn);
+				list.add(seller);
 				
 			}
 			return list;
@@ -190,11 +192,11 @@ public class SellerDaoJDBC implements SellerDao {
 				Department depart = mapDep.get(rs.getInt("s.Department_Id"));
 				
 				if (depart == null) {
-					depart = InstImpl.instantiateDepartment(rs);
+					depart = InstantiationImpl.instantiateDepartment(rs);
 					mapDep.put(rs.getInt("s.Department_Id"), depart);
 				}
 
-				Seller obj = InstImpl.instantiateSeller(rs, depart);
+				Seller obj = InstantiationImpl.instantiateSeller(rs, depart);
 				list.add(obj);
 			}
 			return list;

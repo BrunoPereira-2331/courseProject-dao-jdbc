@@ -10,8 +10,6 @@ public class PhoneNumber implements Serializable{
 	private int idSeller;
 	private String phoneNumber;
 	
-	private Seller seller;
-	
 	public PhoneNumber () {}
 	
 	public PhoneNumber(Integer id, int idSeller, String phoneNumber) {
@@ -42,10 +40,6 @@ public class PhoneNumber implements Serializable{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-	
-	public Seller getSeller() {
-		return seller;
 	}
 
 	@Override

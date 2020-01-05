@@ -28,13 +28,9 @@ public class InstantiationImpl {
 		seller.setBaseSalary(rs.getDouble("BaseSalary"));
 		seller.setBirthDate(rs.getDate("BirthDate"));
 		seller.setDepartment(dep);
-		if (pn != null) {
-			seller.setPhoneNumber(pn);
-			return seller;
-		}
-			return seller;
+		seller.setPhoneNumber(pn);
+		return seller;
 	}
-	
 
 	protected static Department instantiateDepartment(ResultSet rs) throws SQLException {
 		Department dep = new Department();
@@ -45,13 +41,10 @@ public class InstantiationImpl {
 	
 	protected static PhoneNumber instantiatePhoneNumber(ResultSet rs) throws SQLException {
 		PhoneNumber pn = new PhoneNumber();
-		pn.setId(rs.getInt("pn.id"));
-		pn.setIdSeller(rs.getInt("s.id"));
-		pn.setPhoneNumber(rs.getString("pn.phonenumber"));
-		
-		
-		
-		return null;
+		pn.setId(rs.getInt("Phone ID"));
+		pn.setIdSeller(rs.getInt("s.Id"));
+		pn.setPhoneNumber(rs.getString("Phone Number"));
+		return pn;
 		
 	}
 }
