@@ -30,7 +30,7 @@ public class SellerDaoJDBC implements SellerDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-					"INSERT INTO seller(Name, Id, Email, BirthDate, BaseSalary, Department_Id) VALUES(?, ?, ?, ?, ?)",
+					"INSERT INTO seller(Id, Name, Email, BirthDate, BaseSalary, Department_Id) VALUES(?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			st.setString(1, obj.getName());
@@ -100,17 +100,20 @@ public class SellerDaoJDBC implements SellerDao {
 	public Seller findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		Integer phoneSellerId;
 		try {
 			st = conn.prepareStatement(
-					"SELECT s.*,d.name as depName, pn.Id as PhoneID, pn.phonenumber as PhoneNumber FROM seller s "
+					"SELECT s.*, d.name, pn.Id, pn.phonenumber FROM seller s "
 					+"INNER JOIN phonenumber pn ON s.Id = pn.Id_Seller "
 					+"INNER JOIN department d ON s.Department_Id = d.Id "
 					+"WHERE s.id = ? ORDER BY s.Name");
-			
 
 			st.setInt(1, id);
 			rs = st.executeQuery();
+			
+			List<Seller> list = new ArrayList<>();
+			Map<Integer, Department> mapDep = new HashMap<>();
+			Map<Integer, PhoneNumber> mapPn = new HashMap<>();
+			
 			if (rs.next()) {
 				Department dep = InstantiationImpl.instantiateDepartment(rs);
 				PhoneNumber pn = InstantiationImpl.instantiatePhoneNumber(rs);
@@ -133,7 +136,7 @@ public class SellerDaoJDBC implements SellerDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT s.*, d.name as 'depName', pn.Id as 'Phone ID' , pn.phonenumber as 'Phone Number' FROM seller s "
+					"SELECT s.*, d.name, pn.Id, pn.phonenumber FROM seller s "
 					+"INNER JOIN phonenumber pn ON s.Id = pn.Id_Seller "
 					+"INNER JOIN department d ON s.Department_Id = d.Id ORDER BY s.Name"
 					);
@@ -147,14 +150,14 @@ public class SellerDaoJDBC implements SellerDao {
 
 			while (rs.next()) {
 				Department dep = mapDep.get(rs.getInt("s.Department_Id"));
-				PhoneNumber pn = mapPn.get(rs.getInt("pn.Phone ID"));
+				PhoneNumber pn = mapPn.get(rs.getInt("pn.Id"));
 				if (dep == null) {
 					dep = InstantiationImpl.instantiateDepartment(rs);
 					mapDep.put(rs.getInt("s.Department_Id"), dep);
 				}
 				if (pn == null) {
 					pn = InstantiationImpl.instantiatePhoneNumber(rs);
-					mapPn.put(rs.getInt("pn.Phone ID"), pn);
+					mapPn.put(rs.getInt("pn.Id"), pn);
 				}
 				Seller seller = InstantiationImpl.instantiateSeller(rs, dep, pn);
 				list.add(seller);
@@ -176,7 +179,7 @@ public class SellerDaoJDBC implements SellerDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT s.*, d.Name as DepName FROM seller s "  
+					"SELECT s.*, d.Name FROM seller s "  
 					+"INNER JOIN department d ON s.Department_Id = d.id "  
 					+"WHERE s.Department_Id = ? ORDER BY s.name"
 					);

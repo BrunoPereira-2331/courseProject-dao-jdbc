@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -31,11 +32,28 @@ public class Program {
 		//	System.out.println();
 		//}
 		
-		System.out.println("=== TEST 2: seller findAll ===");
+		/*System.out.println("=== TEST 2: seller findAll ===");
 		List<Seller> list = sellerDao.findAll();
 		for (Seller obj : list) {
 			System.out.println(obj);
-		}
+		}*/
+		
+		System.out.println("=== TEST 3: seller findById");
+		
+		System.out.println("=== TEST 4: PhoneNumber insert ===");
+		List<String> phoneNumberList = new ArrayList<>();
+		phoneNumberList.add("88888888");
+		phoneNumberList.add("88888888");
+		
+		
+		PhoneNumber pn = new PhoneNumber(20, 8, phoneNumberList);
+		phoneNumberDao.insert(pn);
+		
+		
+		
+		
+		
+		
 		sc.close();
 	}	
 	}

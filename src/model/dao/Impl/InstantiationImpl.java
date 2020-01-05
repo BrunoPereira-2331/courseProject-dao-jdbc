@@ -34,17 +34,18 @@ public class InstantiationImpl {
 
 	protected static Department instantiateDepartment(ResultSet rs) throws SQLException {
 		Department dep = new Department();
-		dep.setId(rs.getInt("Department_Id"));
-		dep.setName(rs.getString("DepName"));
+		dep.setId(rs.getInt("s.Department_Id"));
+		dep.setName(rs.getString("d.name"));
 		return dep;
 	}
 	
 	protected static PhoneNumber instantiatePhoneNumber(ResultSet rs) throws SQLException {
 		PhoneNumber pn = new PhoneNumber();
-		pn.setId(rs.getInt("Phone ID"));
+		pn.setId(rs.getInt("pn.Id"));
 		pn.setIdSeller(rs.getInt("s.Id"));
-		pn.setPhoneNumber(rs.getString("Phone Number"));
+		while(rs.next()) {
+			pn.addPhoneNumber(rs.getString("pn.phonenumber"));
+		}
 		return pn;
-		
 	}
 }

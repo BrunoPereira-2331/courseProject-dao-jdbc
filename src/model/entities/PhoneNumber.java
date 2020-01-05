@@ -1,6 +1,8 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhoneNumber implements Serializable{
 	
@@ -8,14 +10,16 @@ public class PhoneNumber implements Serializable{
 
 	private Integer id;
 	private int idSeller;
-	private String phoneNumber;
+	private List<String> phoneNumber = new ArrayList<>();
 	
 	public PhoneNumber () {}
 	
-	public PhoneNumber(Integer id, int idSeller, String phoneNumber) {
+	public PhoneNumber(Integer id, int idSeller, List<String> phoneNumber) {
 		this.id = id;
 		this.idSeller = idSeller;
-		this.phoneNumber = phoneNumber;
+		for (String pn : phoneNumber) {
+			this.phoneNumber = phoneNumber;
+		}
 	}
 
 	public int getId() {
@@ -34,14 +38,17 @@ public class PhoneNumber implements Serializable{
 		this.idSeller = idSeller;
 	}
 
-	public String getPhoneNumber() {
+	public List<String> getPhoneNumber() {
 		return phoneNumber;
 	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	
+	public void addPhoneNumber(String phoneNumber) {
+		this.phoneNumber.add(phoneNumber);
 	}
 
+	public void removePhoneNumber(Integer id) {
+		this.phoneNumber.remove(id);
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
